@@ -1,6 +1,8 @@
 "use strict";
 
-let boxes = document.querySelectorAll("[data-cell]");
+const reset = document.querySelector(".btn");
+let boxes = document.querySelectorAll(".box");
+const result = document.querySelector(".result");
 const xTurn = "X";
 const oTurn = "O";
 let currentTurn = true;
@@ -27,14 +29,37 @@ function placeMark(box, currTurn) {
   currentTurn = !currentTurn;
 }
 
+function endGame(winner) {
+  if (winner === "X" || winner === "O")
+    result.textContent = `Player ${winner} wins the game`;
+  else result.textContent = "Draw";
+  boxes.forEach((box) => {
+    box.classList.add("disabled");
+  });
+}
+
+function isDraw() {
+  let dCheck = [...boxes].every((box) => {
+    return box.classList.contains("disabled");
+  });
+  return dCheck;
+}
+
 function checkWinner() {
   for (let combo of winningCombos) {
     let pos0 = boxes[combo[0]].innerText;
     let pos1 = boxes[combo[1]].innerText;
     let pos2 = boxes[combo[2]].innerText;
     if (pos0 !== "" && pos1 !== "" && pos2 !== "") {
-      if (pos0 === pos1 && pos1 === pos2) console.log("winner");
+      if (pos0 === pos1 && pos1 === pos2) {
+        endGame(pos0);
+        return;
+      }
     }
+  }
+  if (isDraw()) {
+    endGame("Draw");
+    return;
   }
 }
 
@@ -42,9 +67,21 @@ function handleCick(e) {
   const box = e.target;
   const currTurn = currentTurn ? oTurn : xTurn;
   placeMark(box, currTurn);
+  box.classList.add("disabled");
   checkWinner();
 }
 
 boxes.forEach((box) => {
-  box.addEventListener("click", handleCick, { once: true });
+  box.addEventListener("click", handleCick);
 });
+
+function resetBoard() {
+  result.textContent = "Player O begins game";
+  currentTurn = true;
+  boxes.forEach((box) => {
+    box.innerText = "";
+    box.classList.remove("disabled");
+  });
+}
+
+reset.addEventListener("click", resetBoard);

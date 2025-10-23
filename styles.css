@@ -7,6 +7,19 @@
 
 h1 {
   text-align: center;
+  font-size: 2rem;
+}
+
+.result {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.game {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -14,10 +27,6 @@ h1 {
   grid-template-columns: repeat(3, 1fr);
   height: 500px;
   width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .container div:nth-child(3n + 2) {
@@ -45,4 +54,46 @@ h1 {
   justify-content: center;
   align-items: center;
   font-size: 5rem;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btpos,
+.display-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: #ea4c89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+
+  touch-action: manipulation;
+}
+
+.btn:hover,
+.btn {
+  background-color: #f082ac;
 }
